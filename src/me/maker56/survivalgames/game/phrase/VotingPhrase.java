@@ -62,7 +62,7 @@ public class VotingPhrase {
 
 	}
 	
-	public void load() {
+	public void load() throws CloneNotSupportedException {
 		game.setState(GameState.VOTING);
 		chooseRandomArenas();
 		game.setScoreboardPhase(SurvivalGames.getScoreboardManager().getNewScoreboardPhase(GameState.VOTING));
@@ -109,8 +109,12 @@ public class VotingPhrase {
 					game.sendMessage(MessageHandler.getMessage("game-voting-end"));
 					Arena winner = getMostVotedArena();
 					winner.getSpawns().get(0).getWorld().setTime(0);
+					try{
+                                            game.startCooldown(winner);
+                                        }catch (Exception e){
+                                            e.printStackTrace();
+                                        }        
 					
-					game.startCooldown(winner);
 					for(Arena arena : voteArenas) {
 						arena.setVotes(0);
 					}
@@ -238,7 +242,7 @@ public class VotingPhrase {
 			Arena a = voteArenas.get(id - 1);
 			if(a != null) {
 				if(!PermissionHandler.hasPermission(p, Permission.FORCEVOTE)){
-                                    p.sendMessage("§4NO PERMS!");
+                                    p.sendMessage(MessageHandler.getMessage("no-permission"));
                                 }
 				a.setVotes(9001);
 				game.getVotedUsers().add(p.getName());

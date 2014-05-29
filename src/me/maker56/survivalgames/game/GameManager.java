@@ -22,7 +22,7 @@ public class GameManager {
 	private List<Game> games = new ArrayList<>();
 	private static FileConfiguration cfg;
 	
-	public GameManager() {
+	public GameManager() throws CloneNotSupportedException {
 		reinitializeDatabase();
 		loadAll();
 	}
@@ -74,7 +74,7 @@ public class GameManager {
 		return;
 	}
 	
-	public void loadAll() { 
+	public void loadAll() throws CloneNotSupportedException { 
 		int loaded = 0;
 		
 		if(cfg.contains("Games")) {
@@ -112,7 +112,7 @@ public class GameManager {
 		}
 	}
 	
-	public boolean load(String name) {
+	public boolean load(String name) throws CloneNotSupportedException {
 		if(getGame(name) != null) {
 			System.out.println("[SurvivalGames] Lobby " + name + " is already loaded!");
 			return false;

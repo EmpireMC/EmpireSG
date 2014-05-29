@@ -24,7 +24,7 @@ public class CooldownPhrase {
 		this.arena = arena;
 	}
 	
-	public void load() {
+	public void load() throws CloneNotSupportedException {
 		game.setCurrentArena(arena);
 		time = game.getCooldownTime();
 		game.setState(GameState.COOLDOWN);
@@ -58,9 +58,11 @@ public class CooldownPhrase {
 					user.getPlayer().setExp(0);
 				}
 				
-				if(time == 27) {
-					game.sendMessage(MessageHandler.getMessage("prefix") + "MAPINFO �7- �eName: �b" + arena.getName());
-				}
+				if(time == 15) {
+					game.sendMessage(MessageHandler.getMessage("prefix") + "Map info");
+                                        game.sendMessage(MessageHandler.getMessage("prefix") + "§7- §eName: §b" + arena.getName());
+                                        game.sendMessage(MessageHandler.getMessage("prefix") + "§7- §eChests: §b" + arena.getChestData());
+				}       game.sendMessage(MessageHandler.getMessage("prefix") + "§7- §eThis map had §b" + arena.getVotes() + " §evotes.");
 				
 				if(time % 5 == 0 && time != 10 && time != 5 && time != 0) {
 					game.sendMessage(MessageHandler.getMessage("game-cooldown-big").replace("%0%", Integer.valueOf(time).toString()));
@@ -79,7 +81,11 @@ public class CooldownPhrase {
 					task.cancel();
 					running = false;
 					time = game.getCooldownTime();
-					game.startIngame();
+                                    try {
+                                        game.startIngame();
+                                    } catch (CloneNotSupportedException ex) {
+                                       ex.printStackTrace();
+                                    }
 					return;
 				}
 				

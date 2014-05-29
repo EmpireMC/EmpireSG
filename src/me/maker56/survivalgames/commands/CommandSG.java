@@ -61,10 +61,19 @@ public class CommandSG implements CommandExecutor {
 			} else {
 				
 				if(args[0].equalsIgnoreCase("arena")) {
-					return new ArenaArgument(sender, args).execute();
+					try{
+                                            return new ArenaArgument(sender, args).execute();
+                                        }catch (Exception e){
+                                            e.printStackTrace();
+                                        }
 					
 				} else if(args[0].equalsIgnoreCase("lobby") || args[0].equalsIgnoreCase("game")) {
-					return new LobbyArgument(sender, args).execute();
+					try{
+                                            return new LobbyArgument(sender, args).execute();
+                                        }catch (Exception e){
+                                            e.printStackTrace();
+                                        }
+                                        
 					
 				} else if(args[0].equalsIgnoreCase("config")) {
 					return new ConfigArgument(sender, args).execute();
@@ -79,8 +88,12 @@ public class CommandSG implements CommandExecutor {
 						p.sendMessage(MessageHandler.getMessage("game-must-enter").replace("%0%", "/sg join <GAMENAME>"));
 						return true;
 					}
+					try{
+                                            SurvivalGames.userManger.joinGame(p, args[1]);
+                                        }catch (Exception e){
+                                            e.printStackTrace();
+                                        }
 					
-					SurvivalGames.userManger.joinGame(p, args[1]);
 					return true;
 					
 				// LEAVE
@@ -100,7 +113,11 @@ public class CommandSG implements CommandExecutor {
 						return true;
 					} else {
 						IngamePhrase ip = game.getIngamePhrase();
-						ip.killUser(user, null, true);
+						try{
+                                                    ip.killUser(user, null, true);
+                                                }catch (Exception e){
+                                                    e.printStackTrace();
+                                                }
 					}
 					
 					return true;
@@ -195,7 +212,11 @@ public class CommandSG implements CommandExecutor {
 						return true;
 					}
 					
-					game.forceStart(p);
+					try{
+                                            game.forceStart(p);
+                                        }catch (Exception e){
+                                            e.printStackTrace();
+                                        }
 					return true;
 				}
 				

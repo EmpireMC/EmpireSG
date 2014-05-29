@@ -48,7 +48,7 @@ public class SignListener implements Listener {
 	}
 	
 	@EventHandler
-	public void onPlayerInteract(PlayerInteractEvent event) {
+	public void onPlayerInteract(PlayerInteractEvent event) throws CloneNotSupportedException {
 		if(event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_AIR)
 			return;
 		Block b = event.getClickedBlock();

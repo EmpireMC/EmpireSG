@@ -19,7 +19,7 @@ public class UpdateListener implements Listener {
 	
 		for(Player p : Bukkit.getOnlinePlayers()) {
 			if(p.isOp()) {
-				p.sendMessage(MessageHandler.getMessage("prefix") + "§eA newer version of SurvivalGames is available. §7(§b" + version + "§7) §eYou can download it here: §bhttp://dev.bukkit.org/bukkit-plugins/ultimatesurvivalgames/ §7You're using §o" + SurvivalGames.version);
+				p.sendMessage(MessageHandler.getMessage("prefix") + "Â§eA newer version of SurvivalGames is available. Â§7(Â§b" + version + "Â§7) Â§eYou can download it here: Â§bhttp://dev.bukkit.org/bukkit-plugins/ultimatesurvivalgames/ Â§7You're using Â§o" + SurvivalGames.version);
 			}
 		}
 	
@@ -28,7 +28,7 @@ public class UpdateListener implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		if(version != null && event.getPlayer().isOp()) {
-			event.getPlayer().sendMessage(MessageHandler.getMessage("prefix") + "§eA newer version of SurvivalGames is available. §7(§b" + version + "§7) §eYou can download it here: §bhttp://dev.bukkit.org/bukkit-plugins/ultimatesurvivalgames/ §7You're using §o" + SurvivalGames.version);
+			event.getPlayer().sendMessage(MessageHandler.getMessage("prefix") + "Â§eA newer version of SurvivalGames is available. Â§7(Â§b" + version + "Â§7) Â§eYou can download it here: Â§bhttp://dev.bukkit.org/bukkit-plugins/ultimatesurvivalgames/ Â§7You're using Â§o" + SurvivalGames.version);
 		}
 	}
 

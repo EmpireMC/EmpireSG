@@ -28,6 +28,8 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SurvivalGames extends JavaPlugin {
 	
@@ -53,51 +55,53 @@ public class SurvivalGames extends JavaPlugin {
 	}
 	
 	public void onEnable() {
-		instance = this;
-		version += getDescription().getVersion();
-		
-		new ConfigLoader().load();
-		PermissionHandler.reinitializeDatabase();
-		Game.reinitializeDatabase();
-		MessageHandler.reload();
-		
-
-		chestManager = new ChestManager();
-		scoreBoardManager = new ScoreBoardManager();
-		arenaManager = new ArenaManager();
-		gameManager = new GameManager();
-		userManger = new UserManager();
-		signManager = new SignManager();
-		
-		getCommand("sg").setExecutor(new CommandSG());
-		
-		pm.registerEvents(new SelectionListener(), this);
-		pm.registerEvents(new PlayerListener(), this);
-		pm.registerEvents(new ChestListener(), this);
-		pm.registerEvents(new SignListener(), this);
-		pm.registerEvents(new ResetListener(), this);
-		pm.registerEvents(new UpdateListener(), this);
-		pm.registerEvents(new SpectatorListener(), this);
-		
-		try {
-			new Metrics(this).start();
-		} catch (IOException e) {
-			System.err.println("[SurvivalGames] Cannot load metrics: " + e.getMessage());
-		}
-		
-		if(getWorldEdit() != null) {
-			System.out.println("[SurvivalGames] Plugin enabled. WorldEdit found!");
-		} else {
-			System.out.println("[SurvivalGames] Plugin enabled.");
-		}
-		
-		signManager.updateSigns();
-		
-		startUpdateChecker();
+            try {
+                instance = this;
+                version += getDescription().getVersion();
+                
+                new ConfigLoader().load();
+                PermissionHandler.reinitializeDatabase();
+                Game.reinitializeDatabase();
+                MessageHandler.reload();
+                
+                
+                chestManager = new ChestManager();
+                scoreBoardManager = new ScoreBoardManager();
+                arenaManager = new ArenaManager();
+                gameManager = new GameManager();
+                userManger = new UserManager();
+                signManager = new SignManager();
+                
+                getCommand("sg").setExecutor(new CommandSG());
+                
+                pm.registerEvents(new SelectionListener(), this);
+                pm.registerEvents(new PlayerListener(), this);
+                pm.registerEvents(new ChestListener(), this);
+                pm.registerEvents(new SignListener(), this);
+                pm.registerEvents(new ResetListener(), this);
+                pm.registerEvents(new UpdateListener(), this);
+                pm.registerEvents(new SpectatorListener(), this);
+                
+                try {
+                    new Metrics(this).start();
+                } catch (IOException e) {
+                    System.err.println("[SurvivalGames] Cannot load metrics: " + e.getMessage());
+                }
+                
+                if(getWorldEdit() != null) {
+                    System.out.println("[SurvivalGames] Plugin enabled. WorldEdit found!");
+                } else {
+                    System.out.println("[SurvivalGames] Plugin enabled.");
+                }
+                
+                signManager.updateSigns();
+                
+                startUpdateChecker();
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(SurvivalGames.class.getName()).log(Level.SEVERE, null, ex);
+            }
 	}
 	
-	// UPDATE CHECKING
-
 	public void startUpdateChecker() {
 		Bukkit.getScheduler().runTaskTimer(this, new Runnable() {
 			public void run() {

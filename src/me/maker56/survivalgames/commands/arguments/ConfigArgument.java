@@ -20,7 +20,7 @@ public class ConfigArgument {
 	
 	public boolean execute() {
 		if(!(sender instanceof Player)) {
-			sender.sendMessage("§cThe lobby argument can only execute as a Player!");
+			sender.sendMessage("Â§cThe lobby argument can only execute as a Player!");
 			return true;
 		}
 		
@@ -32,8 +32,8 @@ public class ConfigArgument {
 		}
 		
 		if(args.length == 1) {
-			p.sendMessage(MessageHandler.getMessage("prefix") + "Configuration §7§m---§r §6Helpsite");
-			p.sendMessage("§8/§6sg config reload [MESSAGES/SIGNS/DATABASE/CONFIG/CHESTLOOT/SCOREBOARD] §7- §eReloads the specify config!");
+			p.sendMessage(MessageHandler.getMessage("prefix") + "Configuration Â§7Â§m---Â§r Â§6Helpsite");
+			p.sendMessage("Â§8/Â§6sg config reload [MESSAGES/SIGNS/DATABASE/CONFIG/CHESTLOOT/SCOREBOARD] Â§7- Â§eReloads the specify config!");
 		} else {
 			if(args[1].equalsIgnoreCase("reload")) {
 				if(args.length == 2) {

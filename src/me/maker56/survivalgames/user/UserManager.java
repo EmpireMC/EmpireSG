@@ -81,7 +81,7 @@ public class UserManager {
 	
 	// END SPECTATOR
 	
-	public void joinGame(Player p, String gamename) {
+	public void joinGame(Player p, String gamename) throws CloneNotSupportedException {
 		if(!PermissionHandler.hasPermission(p, Permission.JOIN)) {
 			p.sendMessage(MessageHandler.getMessage("no-permission"));
 			return;

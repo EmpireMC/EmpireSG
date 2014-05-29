@@ -202,7 +202,7 @@ public class PlayerListener implements Listener {
 	
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onPlayerDeathEvent(PlayerDeathEvent event) {
+	public void onPlayerDeathEvent(PlayerDeathEvent event) throws CloneNotSupportedException {
 		Player p = event.getEntity();
 		
 		if(p.getKiller() instanceof Player) {
@@ -386,7 +386,7 @@ public class PlayerListener implements Listener {
 	}
 	
 	@EventHandler
-	public void onPlayerQuit(PlayerQuitEvent event) {
+	public void onPlayerQuit(PlayerQuitEvent event) throws CloneNotSupportedException {
 		Player p = event.getPlayer();
 		
 		if(um.isPlaying(p.getName())) {

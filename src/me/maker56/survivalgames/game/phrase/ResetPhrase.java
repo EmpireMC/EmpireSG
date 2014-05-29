@@ -16,12 +16,12 @@ public class ResetPhrase {
 	
 	private Game game;
 	
-	public ResetPhrase(Game game) {
+	public ResetPhrase(Game game) throws CloneNotSupportedException {
 		this.game = game;
 		start();
 	}
 	
-	private void start() {
+	private void start() throws CloneNotSupportedException {
 		game.kickall();
 		game.setState(GameState.RESET);
 		World w = game.getCurrentArena().getMinimumLocation().getWorld();

@@ -140,7 +140,7 @@ public class ResetListener implements Listener {
 	}
 	
 	@EventHandler
-	public void onResetComplete(ResetDoneEvent event) {
+	public void onResetComplete(ResetDoneEvent event) throws CloneNotSupportedException {
 		Game game = gm.getGame(event.getLobby());
 		if(game != null) {
 			gm.unload(game);

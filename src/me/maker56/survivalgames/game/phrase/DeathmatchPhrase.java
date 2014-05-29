@@ -2,6 +2,8 @@ package me.maker56.survivalgames.game.phrase;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import me.maker56.survivalgames.SurvivalGames;
 import me.maker56.survivalgames.commands.messages.MessageHandler;
@@ -25,7 +27,7 @@ public class DeathmatchPhrase {
 		this.game = game;
 	}
 	
-	public void load() {
+	public void load() throws CloneNotSupportedException {
 		game.setScoreboardPhase(SurvivalGames.getScoreboardManager().getNewScoreboardPhase(GameState.DEATHMATCH));
 		start();
 	}
@@ -68,7 +70,11 @@ public class DeathmatchPhrase {
 					Collections.shuffle(users);
 					
 					for(int i = 1; i < users.size(); i++) {
-						game.getIngamePhrase().killUser(users.get(i), users.get(0), false);
+                                            try {
+                                                game.getIngamePhrase().killUser(users.get(i), users.get(0), false);
+                                            } catch (CloneNotSupportedException ex) {
+                                               ex.printStackTrace();
+                                            }
 					}
 					
 				}

@@ -69,7 +69,7 @@ public class Game {
 	private List<String> rChunks = new ArrayList<>();
 	public ArrayList<String> voted = new ArrayList<>();
 	
-	public Game(String name, Location lobby, boolean voting, int lobbytime, int maxVotingArenas, int reqplayers, List<Arena> arenas, boolean reset) {
+	public Game(String name, Location lobby, boolean voting, int lobbytime, int maxVotingArenas, int reqplayers, List<Arena> arenas, boolean reset) throws CloneNotSupportedException {
 		this.name = name;
 		this.lobby = lobby;
 		this.voting = voting;
@@ -214,7 +214,7 @@ public class Game {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void join(User user) {
+	public void join(User user) throws CloneNotSupportedException {
 		users.add(user);
 		Player p = user.getPlayer();
 		if(arenas.size() == 1) {
@@ -251,7 +251,7 @@ public class Game {
 		checkForStart();
 	}
 	
-	public void forceStart(Player p) {
+	public void forceStart(Player p) throws CloneNotSupportedException {
 		if(users.size() < 2) {
 			p.sendMessage(MessageHandler.getMessage("prefix") + "§cAt least 2 players are required to start the game!");
 			return;
@@ -299,7 +299,7 @@ public class Game {
 		}
 	}
 	
-	public void end() {
+	public void end() throws CloneNotSupportedException {
 		new ResetPhrase(this);
 	}
 	
@@ -307,17 +307,17 @@ public class Game {
 		return deathmatchPhrase;
 	}
 	
-	public void startDeathmatch() {
+	public void startDeathmatch() throws CloneNotSupportedException {
 		deathmatchPhrase = new DeathmatchPhrase(this);
 		deathmatchPhrase.load();
 	}
 	
-	public void startIngame() {
+	public void startIngame() throws CloneNotSupportedException {
 		ingamePhrase = new IngamePhrase(this);
 		ingamePhrase.load();
 	}
 	
-	public void startCooldown(Arena arena) {
+	public void startCooldown(Arena arena) throws CloneNotSupportedException {
 		cooldownPhrase = new CooldownPhrase(this, arena);
 		cooldownPhrase.load();
 	}
@@ -327,7 +327,7 @@ public class Game {
 	}
 	
 	private boolean forcedStart = false;
-	public void checkForStart() {
+	public void checkForStart() throws CloneNotSupportedException {
 		if(users.size() == reqplayers || forcedStart) {
 			if(cooldownPhrase != null && cooldownPhrase.isRunning())
 				return;

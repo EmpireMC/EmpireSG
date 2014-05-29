@@ -25,7 +25,7 @@ public class ArenaArgument {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public boolean execute() {
+	public boolean execute() throws CloneNotSupportedException {
 		
 		if(!(sender instanceof Player)) {
 			sender.sendMessage("§cThe arena argument can only execute as a Player!");

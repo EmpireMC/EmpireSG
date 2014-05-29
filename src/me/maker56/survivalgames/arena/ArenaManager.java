@@ -170,7 +170,7 @@ public class ArenaManager {
 	
 	// SETUP FINISHEN
 	
-	public void finishSetup(Player p) {
+	public void finishSetup(Player p) throws CloneNotSupportedException {
 		if(!selectedarena.containsKey(p.getName())) {
 			p.sendMessage(MessageHandler.getMessage("arena-must-select").replace("%0%", "/sg arena select <LOBBYNAME> <ARENA NAME>"));
 			return;

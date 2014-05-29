@@ -14,7 +14,7 @@ public class ScoreBoardManager {
 		reinitializeDatabase();
 	}
 	
-	public ScoreboardPhase getNewScoreboardPhase(GameState state) {
+	public ScoreboardPhase getNewScoreboardPhase(GameState state) throws CloneNotSupportedException {
 		if(phases.containsKey(state))
 			return phases.get(state).clone();
 		return null;

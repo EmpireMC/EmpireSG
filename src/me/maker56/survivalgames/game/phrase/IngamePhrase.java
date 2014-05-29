@@ -1,5 +1,7 @@
 package me.maker56.survivalgames.game.phrase;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import me.maker56.survivalgames.SurvivalGames;
 import me.maker56.survivalgames.arena.chest.Chest;
 import me.maker56.survivalgames.commands.messages.MessageHandler;
@@ -44,7 +46,7 @@ public class IngamePhrase {
 		this.time = game.getCurrentArena().getAutomaticlyDeathmatchTime();
 	}
 	
-	public void load() {
+	public void load() throws CloneNotSupportedException {
 		game.setScoreboardPhase(SurvivalGames.getScoreboardManager().getNewScoreboardPhase(GameState.INGAME));
 		start();
 	}
@@ -108,7 +110,11 @@ public class IngamePhrase {
 					} else if(time == 0) {
 						cancelTask();
 						cancelLightningTask();
-						game.startDeathmatch();
+                                            try {
+                                                game.startDeathmatch();
+                                            } catch (CloneNotSupportedException ex) {
+                                               ex.printStackTrace();
+                                            }
 						return;
 					}
 				}
@@ -118,7 +124,7 @@ public class IngamePhrase {
 		}, 0L, 20L);
 	}
 	
-	public void killUser(User user, User killer, boolean leave) {
+	public void killUser(User user, User killer, boolean leave) throws CloneNotSupportedException {
 		int remain = game.getUsers().size() - 1;
 		
 		if(leave) {
@@ -196,7 +202,11 @@ public class IngamePhrase {
 				} else if(time == 0) {
 					cancelDeathmatchTask();
 					cancelLightningTask();
-					game.startDeathmatch();
+                                    try {
+                                        game.startDeathmatch();
+                                    } catch (CloneNotSupportedException ex) {
+                                        ex.printStackTrace();
+                                    }
 					return;
 				}
 				

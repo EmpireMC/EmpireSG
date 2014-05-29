@@ -38,11 +38,15 @@ public class CommandSG implements CommandExecutor {
 					sender.sendMessage("§8/§6sg leave §7- §eLeave a game!");
 					sender.sendMessage("§8/§6sg vote <ID> §7- §eVote for an arena!");
 				}
-				
-				if(PermissionHandler.hasPermission(sender, Permission.LIST)) {
-					sender.sendMessage("§8/§6sg list §7- §eList of all available lobbys!");
+                                
+				if(PermissionHandler.hasPermission(sender, Permission.FORCEVOTE)) {
+					sender.sendMessage("§8/§6sg forcevote <ID> §7- §eForce a map to win the arenavoting.");
 				}
-				
+                                
+				if(PermissionHandler.hasPermission(sender, Permission.LIST)) {
+					sender.sendMessage("§8/§6sg list §7- §eList of all available lobbies!");
+				}
+                               		
 				if(PermissionHandler.hasPermission(sender, Permission.START)) {
 					sender.sendMessage("§8/§6sg start §7- §eForce a lobby to start!");
 				}
@@ -218,9 +222,61 @@ public class CommandSG implements CommandExecutor {
                                             e.printStackTrace();
                                         }
 					return true;
-				}
-				
-				
+                                        
+                                        
+				}else if(args[0].equalsIgnoreCase("forcevote")){
+                                    Player p = (Player)sender;
+					
+					if(!SurvivalGames.userManger.isPlaying(p.getName())) {
+						p.sendMessage(MessageHandler.getMessage("leave-not-playing"));
+						return true;
+					}
+					
+					if(args.length == 1) {
+						p.sendMessage(MessageHandler.getMessage("cmd-error").replace("%0%", "You must specify a Arena-ID!"));
+						return true;
+					}
+					
+					User user = SurvivalGames.userManger.getUser(p.getName());
+					
+					if(!user.getGame().isVotingEnabled()) {
+						p.sendMessage(MessageHandler.getMessage("game-no-voting-enabled"));
+						return true;
+					}
+					
+					if(user.getGame().getState() != GameState.VOTING) {
+						p.sendMessage(MessageHandler.getMessage("game-no-vote"));
+						return true;
+					}
+					
+					VotingPhrase vp = user.getGame().getVotingPhrase();
+					
+					if(!vp.canVote(p)) {
+						p.sendMessage(MessageHandler.getMessage("game-already-vote"));
+						return true;
+					}
+					
+					
+					int mapid = 0;
+					
+					try {
+						mapid = Integer.parseInt(args[1]);
+					} catch (NumberFormatException e) {
+						p.sendMessage(MessageHandler.getMessage("cmd-error").replace("%0%", args[1] + " ist not a valid number!"));
+						return true;
+					}
+					
+
+					Arena arena = vp.forceVote(p, mapid);
+					
+					if(arena == null) {
+						p.sendMessage(MessageHandler.getMessage("game-bad-vote"));
+						return true;
+					}
+					return true;
+                                }
+                                
+         
 				sender.sendMessage(MessageHandler.getMessage("prefix") + "§cCommand not found! Type /sg for help!");
 				return true;
 			}

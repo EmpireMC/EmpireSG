@@ -28,7 +28,7 @@ public class ArenaArgument {
 	public boolean execute() {
 		
 		if(!(sender instanceof Player)) {
-			sender.sendMessage("§cThe arena argument can only execute as a Player!");
+			sender.sendMessage("Â§cThe arena argument can only execute as a Player!");
 			return true;
 		}
 		
@@ -158,7 +158,7 @@ public class ArenaArgument {
 			
 		}
 		
-		p.sendMessage(MessageHandler.getMessage("prefix") + "§cCommand not found! Type /sg arena for help!");
+		p.sendMessage(MessageHandler.getMessage("prefix") + "Â§cCommand not found! Type /sg arena for help!");
 		return true;
 		
 	}
